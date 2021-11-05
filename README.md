@@ -1,5 +1,5 @@
 # fetchrewardstest
-Fetch Rewards take-home test submission
+Fetch Rewards take-home test submission, written by Henry Krider
 
 Documentation on how to run this program:
 
@@ -14,3 +14,6 @@ Step 3: Right click on .py file in folder and select Edit with IDLE --> Edit wit
 Step 4: Once the .py file is open, press f5 or select in the top menu Run --> Run Module. This will open a second window where the code will run. To make calls, follow the instructions that are written, entering inputs on the bottommost line of the window.
 
 Step 5: Enjoy!
+
+Best,
+Henry Krider
