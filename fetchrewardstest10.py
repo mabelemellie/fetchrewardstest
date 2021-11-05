@@ -1,5 +1,10 @@
 ###########################################
+# Main file, includes multiple classes and all relevant functions, which may under other 
+# circumstances store separately, however for ease of use for this test, decided to keep
+# everything in the same file
 ###########################################
+
+## Main object classes, users (payers), transactions, and transaction lists (of which there should just be one)
 
 class User:
     def __init__(self,name,points):
@@ -31,8 +36,8 @@ class TransList:
         self.userlist = []
 
     def addTransaction(self,transaction):
-        newTrans = Transaction.processInput(transaction) # Cleans strings and returns a transaction object
-        self.translist.append(newTrans) # Adds to transaction list
+        newTransaction = Transaction.processInput(transaction) # Cleans strings and returns a transaction object
+        self.translist.append(newTransaction) # Adds to transaction list
         
         # If user is new, add user and give them points, if old user, update points
         isNew = True
@@ -62,17 +67,20 @@ class TransList:
                 dif = -sortlist[i].points
                 pointsspent += dif
                 sortlist[i].points == 0
-                print( sortlist[i].payer, "points: ", dif)
             elif sortlist[i].points >= pointsspent:
                 dif = -pointsspent
                 sortlist[i].points += dif
                 pointsspent = 0
-                print( sortlist[i].payer, "points: ", dif)
+                
+            if dif != 0:
+                print( '     { "payer": ', sortlist[i].payer, "points: ", dif, " },")
 
             # Applies change in points to account/user list
             for j in range(len(self.userlist)):
                 if sortlist[i].payer == self.userlist[j].name:
                     self.userlist[j].points += dif
+                    
+            # When all spent points are accounted for, break
             if pointsspent <= 0:
                 break
 
@@ -82,9 +90,11 @@ class TransList:
 
     def getAccounts(self):
         # Print account numbers
+        print("{")
         for i in range(len(self.userlist)):
             ulist = self.userlist[i]
-            print(ulist.name, ulist.points)
+            print("    ", ulist.name, ": ", ulist.points, ",")
+        print("}")
 
     def sortList(self):
         # if transactions that subtract points are present for some payer at any point,
@@ -111,10 +121,10 @@ class TransList:
         return sortlist
 
 
+## A handful of general functions, for use outside of objects
 
 def cleanInput(string):
     # Takes out extraneous characters from input strings
-    # stripList = [' ','"','{','}',"'"]
     stringPair = string.split(':',1)
     string = stringPair[1]
     for i in range(5):
@@ -140,7 +150,7 @@ def intro():
 intro()
 transList = TransList()
 
-while True
+while True:
     # Check for input
     x = input('Input call here: ')
 
