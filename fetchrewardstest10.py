@@ -2,6 +2,11 @@
 # Main file, includes multiple classes and all relevant functions, which may under other 
 # circumstances store separately, however for ease of use for this test, decided to keep
 # everything in the same file
+
+# Note: as is, this program does not assume inputs will be chronological, and will only check
+# if added transactions caused negative point values when points are spent, and will print out
+# an error message in that case. In a real-world case this would be non-ideal but I chose to give
+# flexibility for a perhaps more disordered but still potentially feasible series of inputs.
 ###########################################
 
 ## Main object classes, users (payers), transactions, and transaction lists (of which there should just be one)
@@ -66,7 +71,7 @@ class TransList:
             elif sortlist[i].points < pointsspent:
                 dif = -sortlist[i].points
                 pointsspent += dif
-                sortlist[i].points == 0
+                sortlist[i].points = 0
             elif sortlist[i].points >= pointsspent:
                 dif = -pointsspent
                 sortlist[i].points += dif
@@ -82,11 +87,9 @@ class TransList:
                     
             # When all spent points are accounted for, break
             if pointsspent <= 0:
+                # Updates transaction list for simplicity. Will lose records but simplify data for the functions.
+                self.translist = sortlist
                 break
-
-        # Updates transaction list for simplicity. Will lose records but simplify
-        # data for the functions.
-        self.translist = sortlist
 
     def getAccounts(self):
         # Print account numbers
@@ -109,13 +112,13 @@ class TransList:
                 negpoints = sortlist[j].points
                 for k in range(j):
                    if sortlist[k].payer == sortlist[j].payer and negpoints < 0:
-                       if sortlist[k].points >= negpoints:
+                       if sortlist[k].points >= abs(negpoints):
                            sortlist[k].points += negpoints
                            negpoints = 0
-                       elif sortlist[k].points < negpoints:
+                       elif sortlist[k].points < abs(negpoints):
                            negpoints += sortlist[k].points
                            sortlist[k].points = 0
-                if negpoints > 0:
+                if negpoints < 0:
                     print("Error: negative points for payer ", sortlist[j].payer)
                 else: sortlist[j].points = 0
         return sortlist
