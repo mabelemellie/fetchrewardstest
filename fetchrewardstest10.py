@@ -42,11 +42,11 @@ class TransList:
         # If user is new, add user and give them points, if old user, update points
         isNew = True
         for i in range(len(self.userlist)):
-            if newTrans.payer == self.userlist[i].name:
-                self.userlist[i].points += newTrans.points
+            if newTransaction.payer == self.userlist[i].name:
+                self.userlist[i].points += newTransaction.points
                 isNew = False
         if isNew == True:
-            self.userlist.append(User(newTrans.payer,newTrans.points))
+            self.userlist.append(User(newTransaction.payer,newTransaction.points))
 
         # Sort by date whenever transactions are added
         self.translist.sort(key=sortDate)
