@@ -127,7 +127,7 @@ def cleanInput(string):
     # Takes out extraneous characters from input strings
     stringPair = string.split(':',1)
     string = stringPair[1]
-    for i in range(5):
+    for i in range(10):
         string = string.strip(' {}()[]" ')
     return string
 
