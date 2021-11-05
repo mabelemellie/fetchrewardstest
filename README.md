@@ -1,5 +1,5 @@
 # fetchrewardstest
-Fetch Rewards Take-Home test submission
+Fetch Rewards take-home test submission
 
 Documentation on how to run this program:
 
